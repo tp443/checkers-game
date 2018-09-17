@@ -1,5 +1,5 @@
 # CS5003 Practical 2 - Checkmate 
-# Authors - temp and mg256
+# Authors - tp443 and mg256
 
 ## Project Details 
 
@@ -25,7 +25,7 @@ Front End:
 To run this project:
 
 //To Install
-git clone https://gitlab.cs.st-andrews.ac.uk/cs5003group-p2-9/CS5003-Group9-Practical2
+git clone
 cd checkmate
 npm install
 
