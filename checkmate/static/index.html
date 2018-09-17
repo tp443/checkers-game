@@ -1,0 +1,313 @@
+<!-- Single Page Web Application to play a MultiPlayer Checkers Game for Practical 2: CS5003  -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title> Checkers </title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="img/favicon.png">
+
+  <!-- Css: main.css -->
+  <link rel="stylesheet" type="text/css" href="/main.css" />
+
+  <!-- JS files: model.js -->
+
+  <script src="model.js"></script>
+
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+  <!-- Google font used in the Game -->
+  <link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+</head>
+
+
+<body>
+  <!-- Starter Page of game -->
+  <div class="startGame">
+    <!-- Display of title -->
+    <header id="gameTitle">MULTIPLAYER CHECKERS GAME</header>
+    <!-- Display of Logo -->
+    <img id="logo" src="img/logo.png" alt="Checkers Logo">
+
+    <!-- Add new user -->
+    <section id="userLogin">
+      <label id="currentPlayerId"> </label>
+      <label id="f_name"> FirstName: </label>
+      <input id="firstNameInput"></input>
+      <label id="l_name"> LastName: </label>
+      <input id="lastNameInput"></input>
+      <!-- Button to submit User Detail to Play Board game -->
+      <button id="login">Login</button>
+    </section>
+
+    <!-- this section displayes the user's available to play -->
+    <div id="listOfUsers">
+      <p id="tableHeading"></p>
+      <p id="onlinePlayersTable"></p>
+    </div>
+  </div>
+
+  <!-- This is the main div of the Web application which has the board and other details related to a current game. -->
+  <div class="gamePlay">
+    <p id="opponentMessage"> </p>
+    <p id="playingAgainst"> </p>
+    <div class="currentPlayer">
+      <p> Current Player's Name: </p>
+      <div id="cp"></div>
+    </div>
+
+    <!-- Extra options for individual players to use during the game -->
+    <div class="gameOptions">
+      <button id="restart"> RESTART</button>
+      <button id="quit"> QUIT</button>
+
+    </div>
+    <!-- Keeps track of how many Checkers are available on the board during game in progress. -->
+    <div class="counter">
+      <!-- defines which player is which checker on the board -->
+      <div id="assignCounter"> You are: </div>
+      <p>
+        <div id="playersTurn"> Player's turn: X</div>
+        <div id="xCounters"> Player X's Counters: 12</div>
+        <div id="yCounters"> Player Y's Counters: 12 </div>
+    </div>
+
+    <!-- Div holds the html side of the board -->
+    <!-- This idea of this section was inspired from: http://www.mauriziopz.eu/from0togame/index.php/checkers-game-in-javascript/ -->
+    <div class="board">
+      <div id="checkersBoard">
+        <table id="checkersBoardView" align=c enter border="1" frame="box">
+          <tr>
+            <td>
+              <input id="b00" type="button" class="even" value="X" onclick="move(0,0)">
+            </td>
+            <td>
+              <INPUT id="b10" TYPE="button" class="odd" Value="  " onClick="move(1,0)">
+            </td>
+            <td>
+              <INPUT id="b20" TYPE="button" class="even" Value="X" onClick="move(2,0)">
+            </td>
+            <td>
+              <INPUT id="b30" TYPE="button" class="odd" Value="  " onClick="move(3,0)">
+            </td>
+            <td>
+              <INPUT id="b40" TYPE="button" class="even" Value="X" onClick="move(4,0)">
+            </td>
+            <td>
+              <INPUT id="b50" TYPE="button" class="odd" Value="  " onClick="move(5,0)">
+            </td>
+            <td>
+              <INPUT id="b60" TYPE="button" class="even" Value="X" onClick="move(6,0)">
+            </td>
+            <td>
+              <INPUT id="b70" TYPE="button" class="odd" Value="  " onClick="move(7,0)">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <INPUT id="b01" TYPE="button" class="odd" Value="  " onClick="move(0,1)">
+            </td>
+            <td>
+              <INPUT id="b11" TYPE="button" class="even" Value="X" onClick="move(1,1)">
+            </td>
+            <td>
+              <INPUT id="b21" TYPE="button" class="odd" Value="  " onClick="move(2,1)">
+            </td>
+            <td>
+              <INPUT id="b31" TYPE="button" class="even" Value="X" onClick="move(3,1)">
+            </td>
+            <td>
+              <INPUT id="b41" TYPE="button" class="odd" Value="  " onClick="move(4,1)">
+            </td>
+            <td>
+              <INPUT id="b51" TYPE="button" class="even" Value="X" onClick="move(5,1)">
+            </td>
+            <td>
+              <INPUT id="b61" TYPE="button" class="odd" Value="  " onClick="move(6,1)">
+            </td>
+            <td>
+              <INPUT id="b71" TYPE="button" class="even" Value="X" onClick="move(7,1)">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <INPUT id="b02" TYPE="button" class="even" Value="X" onClick="move(0,2)">
+            </td>
+            <td>
+              <INPUT id="b12" TYPE="button" class="odd" Value="  " onClick="move(1,2)">
+            </td>
+            <td>
+              <INPUT id="b22" TYPE="button" class="even" Value="X" onClick="move(2,2)">
+            </td>
+            <td>
+              <INPUT id="b32" TYPE="button" class="odd" Value="  " onClick="move(3,2)">
+            </td>
+            <td>
+              <INPUT id="b42" TYPE="button" class="even" Value="X" onClick="move(4,2)">
+            </td>
+            <td>
+              <INPUT id="b52" TYPE="button" class="odd" Value="  " onClick="move(5,2)">
+            </td>
+            <td>
+              <INPUT id="b62" TYPE="button" class="even" Value="X" onClick="move(6,2)">
+            </td>
+            <td>
+              <INPUT id="b72" TYPE="button" class="odd" Value="  " onClick="move(7,2)">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <INPUT id="b03" TYPE="button" class="odd" Value="  " onClick="move(0,3)">
+            </td>
+            <td>
+              <INPUT id="b13" TYPE="button" class="even" Value="  " onClick="move(1,3)">
+            </td>
+            <td>
+              <INPUT id="b23" TYPE="button" class="odd" Value="  " onClick="move(2,3)">
+            </td>
+            <td>
+              <INPUT id="b33" TYPE="button" class="even" Value="  " onClick="move(3,3)">
+            </td>
+            <td>
+              <INPUT id="b43" TYPE="button" class="odd" Value="  " onClick="move(4,3)">
+            </td>
+            <td>
+              <INPUT id="b53" TYPE="button" class="even" Value="  " onClick="move(5,3)">
+            </td>
+            <td>
+              <INPUT id="b63" TYPE="button" class="odd" Value="  " onClick="move(6,3)">
+            </td>
+            <td>
+              <INPUT id="b73" TYPE="button" class="even" Value="  " onClick="move(7,3)">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <INPUT id="b04" TYPE="button" class="even" Value="  " onClick="move(0,4)">
+            </td>
+            <td>
+              <INPUT id="b14" TYPE="button" class="odd" Value="  " onClick="move(1,4)">
+            </td>
+            <td>
+              <INPUT id="b24" TYPE="button" class="even" Value="  " onClick="move(2,4)">
+            </td>
+            <td>
+              <INPUT id="b34" TYPE="button" class="odd" Value="  " onClick="move(3,4)">
+            </td>
+            <td>
+              <INPUT id="b44" TYPE="button" class="even" Value="  " onClick="move(4,4)">
+            </td>
+            <td>
+              <INPUT id="b54" TYPE="button" class="odd" Value="  " onClick="move(5,4)">
+            </td>
+            <td>
+              <INPUT id="b64" TYPE="button" class="even" Value="  " onClick="move(6,4)">
+            </td>
+            <td>
+              <INPUT id="b74" TYPE="button" class="odd" Value="  " onClick="move(7,4)">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <INPUT id="b05" TYPE="button" class="odd" Value="  " onClick="move(0,5)">
+            </td>
+            <td>
+              <INPUT id="b15" TYPE="button" class="even" Value="Y" onClick="move(1,5)">
+            </td>
+            <td>
+              <INPUT id="b25" TYPE="button" class="odd" Value="  " onClick="move(2,5)">
+            </td>
+            <td>
+              <INPUT id="b35" TYPE="button" class="even" Value="Y" onClick="move(3,5)">
+            </td>
+            <td>
+              <INPUT id="b45" TYPE="button" class="odd" Value="  " onClick="move(4,5)">
+            </td>
+            <td>
+              <INPUT id="b55" TYPE="button" class="even" Value="Y" onClick="move(5,5)">
+            </td>
+            <td>
+              <INPUT id="b65" TYPE="button" class="odd" Value="  " onClick="move(6,5)">
+            </td>
+            <td>
+              <INPUT id="b75" TYPE="button" class="even" Value="Y" onClick="move(7,5)">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <INPUT id="b06" TYPE="button" class="even" Value="Y" onClick="move(0,6)">
+            </td>
+            <td>
+              <INPUT id="b16" TYPE="button" class="odd" Value="  " onClick="move(1,6)">
+            </td>
+            <td>
+              <INPUT id="b26" TYPE="button" class="even" Value="Y" onClick="move(2,6)">
+            </td>
+            <td>
+              <INPUT id="b36" TYPE="button" class="odd" Value="  " onClick="move(3,6)">
+            </td>
+            <td>
+              <INPUT id="b46" TYPE="button" class="even" Value="Y" onClick="move(4,6)">
+            </td>
+            <td>
+              <INPUT id="b56" TYPE="button" class="odd" Value="  " onClick="move(5,6)">
+            </td>
+            <td>
+              <INPUT id="b66" TYPE="button" class="even" Value="Y" onClick="move(6,6)">
+            </td>
+            <td>
+              <INPUT id="b76" TYPE="button" class="odd" Value="  " onClick="move(7,6)">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <INPUT id="b07" TYPE="button" class="odd" Value="  " onClick="move(0,7)">
+            </td>
+            <td>
+              <INPUT id="b17" TYPE="button" class="even" Value="Y" onClick="move(1,7)">
+            </td>
+            <td>
+              <INPUT id="b27" TYPE="button" class="odd" Value="  " onClick="move(2,7)">
+            </td>
+            <td>
+              <INPUT id="b37" TYPE="button" class="even" Value="Y" onClick="move(3,7)">
+            </td>
+            <td>
+              <INPUT id="b47" TYPE="button" class="odd" Value="  " onClick="move(4,7)">
+            </td>
+            <td>
+              <INPUT id="b57" TYPE="button" class="even" Value="Y" onClick="move(5,7)">
+            </td>
+            <td>
+              <INPUT id="b67" TYPE="button" class="odd" Value="  " onClick="move(6,7)">
+            </td>
+            <td>
+              <INPUT id="b77" TYPE="button" class="even" Value="Y" onClick="move(7,7)">
+            </td>
+          </tr>
+        </table>
+        <div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- this is the last div of the game which is displayed only when a game os over or user clicks on quit -->
+  <div class="gameOver">
+    <p id="message"> Game over </p>
+  </div>
+
+</body>
+
+<!-- Client Side JavaScript code is included in the below file -->
+<script src="client.js"></script>
+
+</html>
